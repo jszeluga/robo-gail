@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>ROBO-GAIL</title>
+	<style type="text/css">
+		#div_robo {
+			width:400px;
+			margin:auto;
+		}
+
+		.roboBtn {
+			height: 75px;
+			width: 198px;
+		}
+	</style>
+	<script type="text/javascript">
+		function playRoboGail(){
+			if('speechSynthesis' in window){
+				var text = document.getElementById("robo-text").value;
+				var msg = new SpeechSynthesisUtterance();
+				msg.voiceURI = "Google UK English Female";
+				msg.lang = "en-GB";
+				if(text){
+					msg.text = text;
+					speechSynthesis.speak(msg);
+				}
+
+			} else {
+				alert("You must use Google Chrome in order to use this");
+			}
+
+		}
+
+		function stopRoboGail(){
+			if('speechSynthesis' in window){
+				speechSynthesis.cancel();
+			} else {
+				alert("You must use Google Chrome in order to use this");
+			}
+		}
+
+	</script>
+</head>
+<body>
+	<div id="div_robo">
+		<textarea id="robo-text" rows="10" cols="54">Hello Baby</textarea>
+		<button id="btn_play" class="roboBtn" type="button" onclick="playRoboGail()">Play</button>
+		<button id="btn_stop" class="roboBtn" type="button" onclick="stopRoboGail()">Stop</button>
+	</div>
+</body>
+</html>
