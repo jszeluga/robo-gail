@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>ROBO-GAIL</title>
+	<style type="text/css">
+		#div_robo {
+			width:400px;
+			margin:auto;
+		}
+
+		.roboBtn {
+			height: 75px;
+			width: 198px;
+		}
+	</style>
+	<script type="text/javascript">
+		function playRoboGail(){
+			if('speechSynthesis' in window){
+
+				var voices = speechSynthesis.getVoices();
+				var rgVoice = voices.find(function(voice){
+					return voice.voiceURI === "Google UK English Female";
+				});				
+
+				if(rgVoice){
+					var text = document.getElementById("robo-text").value;
+					var msg = new SpeechSynthesisUtterance();
+					msg.voice = rgVoice;
+					if(text){
+						msg.text = text;
+						speechSynthesis.speak(msg);
+					}
+				} else{
+					alert("You must use Google Chrome with the 'Google UK English Female' voice");
+				}
+
+			} else {
+				alert("You must use a browser that supports the Web Speech API");
+			}
+
+		}
+
+		function stopRoboGail(){
+			if('speechSynthesis' in window){
+				speechSynthesis.cancel();
+			} else {
+				alert("You must use a browser that supports the Web Speech API");
+			}
+		}
+
+		window.onload = function() {
+			speechSynthesis.getVoices();
+		}
+
+	</script>
+</head>
+<body>
+	<div id="div_robo">
+		<textarea id="robo-text" rows="10" cols="54">Hello Baby</textarea>
+		<button id="btn_play" class="roboBtn" type="button" onclick="playRoboGail()">Play</button>
+		<button id="btn_stop" class="roboBtn" type="button" onclick="stopRoboGail()">Stop</button>
+	</div>
+</body>
+</html>
